@@ -2,8 +2,7 @@ const init = () => {
   // ステージを作成
   const stage = new createjs.Stage('myCanvas')
 
-  const PARTICLE_MAX_LIFE = 50
-  const size = 10
+  const size = 5
   let particles = []
 
   const createParticle = (function () {
@@ -22,7 +21,6 @@ const init = () => {
       particle.vx = Math.random() * 20 - 10
       particle.vy = Math.random() * 10 - 5
       particle.compositeOperation = 'lighter'
-      particle.life = PARTICLE_MAX_LIFE
 
       return particle
     }
@@ -38,8 +36,8 @@ const init = () => {
 
   function emmitParticles () {
     let particles = []
-    for (let i = 0; i < 4; i++) {
-      const pos = {x: stage.mouseX, y: stage.mouseY}
+    for (let i = 0; i < 1; i++) {
+      const pos = {x: stage.mouseX + 50, y: stage.mouseY}
       const particle = createParticle(size, pos)
 
       particles.push(particle)
@@ -66,13 +64,6 @@ const init = () => {
       if (particle.y > stage.canvas.height - size) {
         particle.y = stage.canvas.height - size
         particle.vy *= -1
-      }
-
-      particle.life -= 1
-
-      if (particle.life <= 0) {
-        stage.removeChild(particle)
-        particles.splice(i, 1)
       }
     })
   }
