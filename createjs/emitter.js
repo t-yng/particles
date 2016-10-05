@@ -6,7 +6,12 @@ class Emitter extends createjs.Shape {
     this.x = pos.x
     this.y = pos.y
     this.particleCount = this.DEFAULT_PARTICLE_COUNT()
-    this.counter = 0
+    this.cursor = 'pointer'
+
+    this.addEventListener('pressmove', event => {
+      this.x = event.stageX
+      this.y = event.stageY
+    })
   }
 
   EMITTER_SIZE () {
@@ -34,8 +39,6 @@ class Emitter extends createjs.Shape {
   }
 
   createParticle (size, pos) {
-    this.counter = this.counter++ % 360
-
     const particle = new createjs.Shape()
 
     // particle.graphics.beginFill(createjs.Graphics.getHSL(this.counter++, 50, 50))
